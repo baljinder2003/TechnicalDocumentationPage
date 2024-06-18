@@ -1,9 +1,12 @@
 :root {
     --base: 4;
+    --basefont:16px;
     --gd: linear-gradient(-45deg, crimson, magenta, cyan);
     --gdreverse: linear-gradient(45deg, cyan, magenta, crimson);
 }
-
+@function scale($a){
+    @return calc(var(--base)*$a);
+}
 * {
     border: 0;
     margin: 0;
@@ -15,61 +18,72 @@
 }
 
 html {
-    font-size: 16px;
+    font-size: var(--basefont);
+    overflow-x: hidden;
     body {
-        position: relative;
-        div#closebutton {
-            z-index: 2;
+        div#closebutton { 
             display: none;
-            position: fixed;
-            right: calc(var(--base) * 10rem);
-            @media (orientation:portrait) {
+            @media (orientation:portrait) { 
                 display: inline;
-                top: calc(var(--base) * 1px);
-                right: calc(var(--base) * 1px);
-                font-size: calc(var(--base) * .5rem);
+                z-index: 2;
+                position: fixed;
+                top: scale(1px);
+                right: scale(1px);
+                font-size: scale(.5rem);
                 background: var(--gd);
                 border-radius: 5px;
                 &.button {
-                    font-size: calc(var(--base)*20px);
-                    line-height: calc(var(--base)*2px);
-                    height: calc(var(--base)*10px);}}}
+                    font-size: scale(1.25rem);
+                    line-height: scale(.125rem);
+                    height: scale(.625rem);}}}
         nav#navbar {
+            z-index: 2;
             position: fixed;
             top: 0;
             left: 0;
+            width: 100%;
+            height: scale(20px);
             background: var(--gd);
-            width: calc(var(--base) * 50px);
-            height: 100%;
+            @media (orientation:landscape){
+                display: flex;
+                justify-content: space-between;
+                align-items: center;}
             @media (orientation:portrait) {
-                transition: 1s ease;
-                width: 100%;
+                transition: all 1s ease;
                 height: 100%;
                 &.navbar{
-                   display: none;}}
+                    transform: translate(-100%);}}
             header {
                 height: fit-content;
-                font-size: calc(var(--base)*1rem);
-                margin-top: 1rem;
+                font-size:scale(6px);
+                margin-left: scale(2px);
                 &::first-letter {
                     color: limegreen;}
                 span {
-                    font-size: calc(var(--base) * 2.5rem);
-                    line-height: calc(var(--base) * 1.7rem);}}
-            ul {
+                    font-size: scale(.625em);
+                    line-height: scale(.2em);}
+                @media (orientation:portrait){
+                    font-size:scale(1rem);
+                }}
+            ul {width: 100%;
                 display: flex;
-                flex-direction: column;
+                flex-wrap: wrap;
                 justify-content: space-around;
-                height: calc(var(--base) * 5rem);
-                padding-left: calc(var(--base)*.2rem);
+                align-items: center;
+                gap: 5px;
+                @media (orientation:portrait){
+                    flex-direction: column;
+                    align-items: flex-start;
+                    height: scale(5rem);
+                    padding-left: calc(var(--base)*.2rem);}
                 li {
-                    font-size: calc(var(--base) * .4rem);}}}
+                    font-size: scale(.4rem);}}}
         main#main-doc {
-            margin-left: calc(var(--base) * 50px);
+            margin-top: scale(20px);
             @media (orientation:portrait) {
-                margin-left: 0;}
+                margin-top: 0;}
             section.main-section {
-                padding-left: calc(var(--base) * .25rem);;
+                padding-left: scale(.25rem);
                 &:nth-of-type(odd) {
                     background: var(--gd);}
                 &:nth-of-type(even) {
@@ -78,30 +92,28 @@ html {
                     background: linear-gradient(40deg, white, gray, black);}
                 header {
                     display: inline;
-                    font-size: calc(var(--base) * .5rem);
-                    margin-left: calc(var(--base) * 12px);
-                    background: linear-gradient(45deg, #147258, #258369);
+                    font-size: scale(.5rem);
+                    background: linear-gradient(180deg,yellow 50%, purple);
                     background-clip: text;
                     -webkit-text-fill-color: transparent;}
                 .map{
                     width: 90%;
-                    overflow: auto;
-                }
+                    overflow: auto;}
                 p {
-                    font-size: calc(var(--base) * .25rem);
-                    margin-top: calc(var(--base) * 1px);
-                    margin-left: calc(var(--base) * 12px);
-                    margin-bottom: calc(var(--base) * 1px);}
+                    font-size: scale(.25rem);
+                    margin-top: scale(1px);
+                    margin-left: scale(12px);
+                    margin-bottom: scale(1px);}
                 pre {
-                    max-height: calc(var(--base) * 100px);
+                    max-height: scale(100px);
                     width: 90%;
                     overflow: auto;
                     border-radius: 15px;
-                    margin: 0 calc(var(--base) * 1px) !important;
+                    margin: 0 scale(1px) !important;
                     &:focus {
                         outline: none !important;}
                     code {
-                        font-size: calc(var(--base) * .25rem);}}}}}}
+                        font-size: scale(.25rem);}}}}}}
 #tooltip2,
 #tooltip3 {
     position: absolute;
